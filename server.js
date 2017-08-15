@@ -79,6 +79,8 @@ app.post("/", function(req, res, next) {
       budget: 0
     });
 
+    console.log(action)
+  
   if (action == "quiz.budget") {
     conversation.budget = reqParams.budget.amount;
     assistant.tell(actionResponse(conversation.budget)[action]);
@@ -104,7 +106,7 @@ app.post("/", function(req, res, next) {
 
     const resHandler = val => {
       logObject("flask response: ", val);
-
+      console.log("flask ", val)
       assistant.tell(actionResponse(val)["quiz.interest2"]);
 
       SESSION_STORE.delete(req.body.sessionId);
@@ -147,7 +149,7 @@ app.post("/", function(req, res, next) {
       conversation.budget,
       ...Array(4).fill(0)
     ];
-
+    
     getRecommendation(assistant, featureVector);
   }
 
