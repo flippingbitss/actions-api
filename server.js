@@ -7,7 +7,7 @@ const ApiAiAssistant = require("actions-on-google").ApiAiAssistant;
 const bodyParser = require("body-parser");
 const request = require("request");
 const app = express();
-const FormData = require('form-data')
+const FormData = require("form-data");
 // const Map = require("es6-map");
 
 // Pretty JSON output for logs
@@ -73,21 +73,21 @@ app.post("/", function(req, res, next) {
   const reqParams = req.body.result.parameters;
   const action = req.body.result.action;
 
-  if (!conversation){
-   SESSION_STORE.set(req.body.sessionId, {
+  if (!conversation) {
+    SESSION_STORE.set(req.body.sessionId, {
       interests: new Set(),
       duration: 0,
       budget: 0
     });
 
-    conversation = SESSION_STORE.get(req.body.sessionId)
+    conversation = SESSION_STORE.get(req.body.sessionId);
   }
-  
-    console.log(action)
-  
+
+  console.log(action);
+
   if (action == "quiz.budget") {
     conversation.budget = reqParams.budget.amount;
-    console.log(conversation)
+    console.log(conversation);
     assistant.tell(actionResponse(conversation.budget)[action]);
   }
 
@@ -97,25 +97,23 @@ app.post("/", function(req, res, next) {
         ? reqParams.duration.amount
         : reqParams.duration.amount * 30;
 
-
-    console.log(conversation)
+    console.log(conversation);
     assistant.tell(actionResponse(conversation.duration)[action]);
   }
 
   if (action == "quiz.interest") {
-
     conversation.interests.add(reqParams.interest);
-    console.log(conversation)
+    console.log(conversation);
     assistant.tell(actionResponse(reqParams.interest)[action]);
   }
 
   function getRecommendation(assistant, featureVector) {
-    const body = new FormData()
+    const body = new FormData();
     body.append("features", featureVector);
 
     const resHandler = val => {
       logObject("flask response: ", val);
-      console.log("flask ", val)
+      console.log("flask ", val);
       assistant.tell(actionResponse(val)["quiz.interest2"]);
 
       SESSION_STORE.delete(req.body.sessionId);
@@ -125,13 +123,28 @@ app.post("/", function(req, res, next) {
       .then(res => res.json())
       .then(resHandler)
       .catch(err => next(err));
+
+    request.post(
+      FLASK_URL,
+      {
+        json: {
+          features: featureVector
+        }
+      },
+      function(error, response, body) {
+        if (!error && response.statusCode == 200) {
+          resHandler(body);
+        }
+        if(err)
+          next(err)
+      }
+    );
   }
 
   if (action == "quiz.interest2") {
-
     conversation.interests.add(reqParams.interest);
-    const convInterests = Array.from(conversation.interests)
-    console.log(conversation)
+    const convInterests = Array.from(conversation.interests);
+    console.log(conversation);
 
     const interestRatios = interestScore.map((item, idx) => {
       const index = convInterests.indexOf(item);
