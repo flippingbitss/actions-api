@@ -9,7 +9,7 @@ const request = require("request");
 const app = express();
 const FormData = require("form-data");
 const fetch = require("node-fetch");
-const axios = require('axios')
+const axios = require("axios");
 // const Map = require("es6-map");
 
 // Pretty JSON output for logs
@@ -128,9 +128,14 @@ app.post("/", function(req, res, next) {
     //   .then(resHandler)
     //   .catch(err => next(err));
     axios
-      .post(FLASK_URL, body)
+      .post(FLASK_URL, {
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: body
+      })
       .then(function(response) {
-        resHandler(response)
+        resHandler(response);
       })
       .catch(function(error) {
         console.log(error);
