@@ -67,7 +67,7 @@ app.post("/", function(req, res, next) {
   // Instantiate a new API.AI assistant object.
   const assistant = new ApiAiAssistant({ request: req, response: res });
 
-  const conversation = SESSION_STORE.get(request.body.sessionId);
+  const conversation = SESSION_STORE.get(req.body.sessionId);
 
   const reqParams = req.body.result.parameters;
   const action = req.body.result.action;
@@ -149,7 +149,7 @@ app.post("/", function(req, res, next) {
       conversation.budget,
       ...Array(4).fill(0)
     ];
-    
+
     getRecommendation(assistant, featureVector);
   }
 
