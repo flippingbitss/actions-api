@@ -67,18 +67,19 @@ app.post("/", function(req, res, next) {
   // Instantiate a new API.AI assistant object.
   const assistant = new ApiAiAssistant({ request: req, response: res });
 
-  const conversation = SESSION_STORE.get(req.body.sessionId);
+  let conversation = SESSION_STORE.get(req.body.sessionId);
 
   const reqParams = req.body.result.parameters;
   const action = req.body.result.action;
 
-  if (!conversation)
-    SESSION_STORE.set(req.body.sessionId, {
+  if (!conversation){
+   conversation = SESSION_STORE.set(req.body.sessionId, {
       interests: new Set(),
       duration: 0,
       budget: 0
     });
-
+  }
+  
     console.log(action)
   
   if (action == "quiz.budget") {
