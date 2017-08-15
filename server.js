@@ -52,7 +52,7 @@ const params = {
 const actionResponse = value => {
   return {
     "quiz.budget": `Great! ${value} sounds good. What's the duration of your travel ? (In days)`,
-    "quiz.duration": `${value} sounds good ! Of the following what do you prefer the most ?`,
+    "quiz.duration": `${value} sounds good ! Of the following what do you prefer the most ? Museums, Nature, Wildlife, Skyscrapers, Temples`,
     "quiz.interest": `${value} added to the list. What else do you like ?`,
     "quiz.interest2": `Got it . Now based on all the information you have provided, my recommendation would be to  travel to ${value}.`
   };
@@ -111,9 +111,9 @@ app.post("/", function(req, res, next) {
 
   function getRecommendation(assistant, featureVector) {
     const body = new FormData();
-    for(var i=0; i < featureVector.length; i++) body.append(i,featureVector[i])
+    // for(var i=0; i < featureVector.length; i++) body.append(i,featureVector[i])
 
-    // body.append("features", JSON.stringify(featureVector));
+    body.append("features", JSON.stringify(featureVector));
 
     const resHandler = val => {
       logObject("flask response: ", val);
