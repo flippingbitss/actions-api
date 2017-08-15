@@ -94,7 +94,7 @@ app.post("/", function(req, res, next) {
         : reqParams.duration.amount * 30;
 
 
-    logObject(conversation)
+    console.log(conversation)
     assistant.tell(actionResponse(conversation.duration.amount)[action]);
   }
 
