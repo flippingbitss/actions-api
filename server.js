@@ -93,7 +93,7 @@ app.post("/", function(req, res, next) {
         ? reqParams.duration.amount
         : reqParams.duration.amount * 30;
 
-    assistant.tell(actionResponse(conversation.duratoin)[action]);
+    assistant.tell(actionResponse(conversation.duration.amount)[action]);
   }
 
   if (action == "quiz.interest") {
