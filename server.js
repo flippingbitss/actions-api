@@ -123,31 +123,31 @@ app.post("/", function(req, res, next) {
       SESSION_STORE.delete(req.body.sessionId);
     };
 
-    fetch(FLASK_URL, {
-      method: "POST",
-      body: JSON.stringify({features: featureVector}),
-      headers: { "Content-Type": "application/json" }
-    })
-      .then(res => res.json())
-      .then(resHandler).catch(err => next(err));
+    // fetch(FLASK_URL, {
+    //   method: "POST",
+    //   body: JSON.stringify({features: featureVector}),
+    //   headers: { "Content-Type": "application/json" }
+    // })
+    //   .then(res => res.json())
+    //   .then(resHandler).catch(err => next(err));
 
     // fetch(FLASK_URL, { method: "POST", body })
     //   .then(res => res.json())
     //   .then(resHandler)
     //   .catch(err => next(err));
-    // axios
-    //   .post(FLASK_URL, {
-    //     headers: {
-    //       "Content-Type": "application/json"
-    //     },
-    //     body: body
-    //   })
-    //   .then(function(response) {
-    //     resHandler(response);
-    //   })
-    //   .catch(function(error) {
-    //     console.log(error);
-    //   });
+    axios
+      .post(FLASK_URL, {
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({features: featureVector})
+      })
+      .then(function(response) {
+        resHandler(response);
+      })
+      .catch(function(error) {
+        console.log(error);
+      });
 
     // request.post({ url: FLASK_URL, formData: body }, function optionalCallback(
     //   err,
