@@ -84,6 +84,7 @@ app.post("/", function(req, res, next) {
   
   if (action == "quiz.budget") {
     conversation.budget = reqParams.budget.amount;
+    console.log(conversation)
     assistant.tell(actionResponse(conversation.budget)[action]);
   }
 
@@ -99,7 +100,9 @@ app.post("/", function(req, res, next) {
   }
 
   if (action == "quiz.interest") {
+
     conversation.interests.add(reqParams.interest);
+    console.log(conversation)
     assistant.tell(actionResponse(reqParams.interest)[action]);
   }
 
@@ -125,6 +128,7 @@ app.post("/", function(req, res, next) {
 
     conversation.interests.add(reqParams.interest);
     const convInterests = Array.from(conversation.interests)
+    console.log(conversation)
 
     const interestRatios = interestScore.map((item, idx) => {
       const index = convInterests.indexOf(item);
