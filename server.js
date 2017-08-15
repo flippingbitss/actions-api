@@ -108,8 +108,8 @@ app.post("/", function(req, res, next) {
   }
 
   function getRecommendation(assistant, featureVector) {
-    const body = new FormData();
-    body.append("features", featureVector);
+    // const body = new FormData();
+    // body.append("features", featureVector);
 
     const resHandler = val => {
       logObject("flask response: ", val);
@@ -119,10 +119,10 @@ app.post("/", function(req, res, next) {
       SESSION_STORE.delete(req.body.sessionId);
     };
 
-    fetch(FLASK_URL, { method: "POST", body })
-      .then(res => res.json())
-      .then(resHandler)
-      .catch(err => next(err));
+    // fetch(FLASK_URL, { method: "POST", body })
+    //   .then(res => res.json())
+    //   .then(resHandler)
+    //   .catch(err => next(err));
 
     request.post(
       FLASK_URL,
