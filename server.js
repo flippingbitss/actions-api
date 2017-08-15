@@ -73,11 +73,13 @@ app.post("/", function(req, res, next) {
   const action = req.body.result.action;
 
   if (!conversation){
-   conversation = SESSION_STORE.set(req.body.sessionId, {
+   SESSION_STORE.set(req.body.sessionId, {
       interests: new Set(),
       duration: 0,
       budget: 0
     });
+
+    conversation = SESSION_STORE.get(req.body.sessionId)
   }
   
     console.log(action)
