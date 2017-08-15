@@ -111,7 +111,9 @@ app.post("/", function(req, res, next) {
 
   function getRecommendation(assistant, featureVector) {
     const body = new FormData();
-    body.append("features", JSON.stringify(featureVector));
+    for(var i=0; i < featureVector.length; i++) body.append(i,featureVector[i])
+
+    // body.append("features", JSON.stringify(featureVector));
 
     const resHandler = val => {
       logObject("flask response: ", val);
@@ -121,18 +123,18 @@ app.post("/", function(req, res, next) {
       SESSION_STORE.delete(req.body.sessionId);
     };
 
-    // fetch(FLASK_URL, { method: "POST", body })
-    //   .then(res => res.json())
-    //   .then(resHandler)
-    //   .catch(err => next(err));
-    axios
-      .post(FLASK_URL, body)
-      .then(function(response) {
-        console.log(response);
-      })
-      .catch(function(error) {
-        console.log(error);
-      });
+    fetch(FLASK_URL, { method: "POST", body })
+      .then(res => res.json())
+      .then(resHandler)
+      .catch(err => next(err));
+    // axios
+    //   .post(FLASK_URL, body)
+    //   .then(function(response) {
+    //     console.log(response);
+    //   })
+    //   .catch(function(error) {
+    //     console.log(error);
+    //   });
 
     // request.post({ url: FLASK_URL, formData: body }, function optionalCallback(
     //   err,
