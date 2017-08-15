@@ -9,6 +9,7 @@
 		"express": "^4.14.0",
 		"actions-on-google": "^1.0.4",
 		"body-parser": "^1.15.2",
+		"form-data":"^2.2.0",
 		"request": "^2.79.0",
 		"es6-map": "^0.1.4",
 		"prettyjson": "^1.2.1",
