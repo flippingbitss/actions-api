@@ -124,17 +124,25 @@ app.post("/", function(req, res, next) {
     //   .then(res => res.json())
     //   .then(resHandler)
     //   .catch(err => next(err));
+    axios
+      .post(FLASK_URL, body)
+      .then(function(response) {
+        console.log(response);
+      })
+      .catch(function(error) {
+        console.log(error);
+      });
 
-    request.post({ url: FLASK_URL, formData: body }, function optionalCallback(
-      err,
-      httpResponse,
-      body
-    ) {
-      if (err) {
-        next(err)
-      }
-      console.log("Server responded with:", body);
-    });
+    // request.post({ url: FLASK_URL, formData: body }, function optionalCallback(
+    //   err,
+    //   httpResponse,
+    //   body
+    // ) {
+    //   if (err) {
+    //     next(err)
+    //   }
+    //   console.log("Server responded with:", body);
+    // });
   }
 
   if (action == "quiz.interest2") {

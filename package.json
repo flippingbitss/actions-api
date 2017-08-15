@@ -6,14 +6,15 @@
 		"start": "node server.js"
 	},
 	"dependencies": {
-		"express": "^4.14.0",
 		"actions-on-google": "^1.0.4",
+		"axios": "^0.16.2",
 		"body-parser": "^1.15.2",
-		"form-data":"^2.2.0",
-		"request": "^2.79.0",
 		"es6-map": "^0.1.4",
+		"express": "^4.14.0",
+		"form-data": "^2.2.0",
 		"node-fetch": "^1.7.2",
 		"prettyjson": "^1.2.1",
+		"request": "^2.79.0",
 		"underscore.string": "^3.3.4"
 	},
 	"engines": {
