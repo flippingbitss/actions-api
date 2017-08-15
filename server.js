@@ -98,7 +98,7 @@ app.post("/", function(req, res, next) {
 
 
     console.log(conversation)
-    assistant.tell(actionResponse(conversation.duration.amount)[action]);
+    assistant.tell(actionResponse(conversation.duration)[action]);
   }
 
   if (action == "quiz.interest") {
